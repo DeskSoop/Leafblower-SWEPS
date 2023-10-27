@@ -7,7 +7,7 @@ SWEP.AdminOnly = false
 
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.DefaultClip = 8
-SWEP.Primary.Automatic = false
+SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "Buckshot"
 SWEP.Secondary.Ammo = "none"
 SWEP.Category = "Leafblower"
@@ -32,37 +32,14 @@ function SWEP:PrimaryAttack()
     if not self:CanPrimaryAttack() then
         return
     end
-    self.Cancel = false
     self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-    self:SetNextPrimaryFire(CurTime() + .3)
+    self:SetNextPrimaryFire(CurTime() + .125)
     self:GetOwner():SetGroundEntity(NULL)
     self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*25)
-    self:ShootBullet(0, 25, .125)
+    self:ShootBullet(0, 15, .1)
     self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
     self:GetOwner():ViewPunch( Angle( -2, 0, 0 ) )
     self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-3,math.random(-0.35,0.35),0))
-    timer.Create("burst2", 0.0625, 1, function()
-        if not self.Cancel then
-            self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-            self:GetOwner():SetGroundEntity(NULL)
-            self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*25)
-            self:ShootBullet(0, 25, .125)
-            self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
-            self:GetOwner():ViewPunch( Angle( -2, 0, 0 ) )
-            self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-3,math.random(-0.35,0.35),0))
-        end
-    end)
-    timer.Create("burst3", 0.125, 1, function()
-        if not self.Cancel then
-            self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-            self:GetOwner():SetGroundEntity(NULL)
-            self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*25)
-            self:ShootBullet(0, 25, .125)
-            self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
-            self:GetOwner():ViewPunch( Angle( -2, 0, 0 ) )
-            self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-3,math.random(-0.35,0.35),0))
-        end
-    end)
 end
 
 function SWEP:SecondaryAttack()
@@ -99,6 +76,5 @@ function SWEP:Deploy()
 end
 
 function SWEP:Holster()
-    self.Cancel = true
     return true
 end
