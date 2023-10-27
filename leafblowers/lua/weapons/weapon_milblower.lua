@@ -37,7 +37,7 @@ function SWEP:PrimaryAttack()
     self:SetNextPrimaryFire(CurTime() + .1)
     self:GetOwner():SetGroundEntity(NULL)
     self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*10)
-    self:ShootBullet(0, 1, .25)
+    self:ShootBullet(0, 2, .2)
     self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
     self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-1,math.random(-0.35,0.35),0))
 end
