@@ -1,4 +1,4 @@
-SWEP.PrintName = "Civilian Leadblower"
+SWEP.PrintName = "Civilian Leafblower"
 SWEP.Author = "Obstructed"
 SWEP.Instructions = "Gun"
 
