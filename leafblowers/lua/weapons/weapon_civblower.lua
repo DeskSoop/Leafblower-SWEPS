@@ -23,7 +23,7 @@ SWEP.DrawCrosshair = false
 SWEP.CSMuzzleFlashes = true 
 SWEP.SoundEntities = {}
 SWEP.ViewModel = "models/v_egon.mdl" 
-SWEP.WorldModel = "models/v_egon.mdl"
+SWEP.WorldModel = "models/w_egon.mdl"
 
 SWEP.UseHands = true
 SWEP.ShootSound = Sound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav")
@@ -33,10 +33,10 @@ function SWEP:PrimaryAttack()
         return
     end
     self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-    self:SetNextPrimaryFire(CurTime() + 50)
+    self:SetNextPrimaryFire(CurTime() + .2)
     self:GetOwner():SetGroundEntity(NULL)
     self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*25)
-    self:ShootBullet(0, 10, .1)
+    self:ShootBullet(0, 1, .1)
     self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
     self:GetOwner():ViewPunch( Angle( -2, 0, 0 ) )
     self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-3,math.random(-0.35,0.35),0))
