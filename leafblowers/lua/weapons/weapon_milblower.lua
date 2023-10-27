@@ -34,7 +34,7 @@ function SWEP:PrimaryAttack()
         return
     end
     self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-    self:SetNextPrimaryFire(CurTime() + .1)
+    self:SetNextPrimaryFire(CurTime() + .05)
     self:GetOwner():SetGroundEntity(NULL)
     self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*10)
     self:ShootBullet(0, 2, .2)
