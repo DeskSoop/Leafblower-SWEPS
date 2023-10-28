@@ -8,7 +8,7 @@ SWEP.AdminOnly = false
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = true
-SWEP.Primary.Ammo = "Buckshot"
+SWEP.Primary.Ammo = "none"
 SWEP.Secondary.Ammo = "none"
 SWEP.Category = "Leafblower"
 
@@ -19,8 +19,8 @@ SWEP.AutoSwitchFrom = false
 SWEP.Slot = 3
 SWEP.SlotPos = 1
 SWEP.DrawAmmo = false
-SWEP.DrawCrosshair = false
-SWEP.CSMuzzleFlashes = true 
+SWEP.DrawCrosshair = true
+SWEP.CSMuzzleFlashes = true
 SWEP.SoundEntities = {}
 SWEP.ViewModel = "models/v_rpg.mdl" 
 SWEP.WorldModel = "models/w_rpg.mdl"
@@ -29,17 +29,16 @@ SWEP.UseHands = true
 SWEP.ShootSound = Sound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav")
 
 function SWEP:PrimaryAttack()
-    self.Cancel = false
     if not self:CanPrimaryAttack() then
         return
     end
     self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
     self:SetNextPrimaryFire(CurTime() + .05)
     self:GetOwner():SetGroundEntity(NULL)
-    self:GetOwner():SetVelocity(-self:GetOwner():GetAimVector()*10)
-    self:ShootBullet(20, 2, .2)
-    self:GetOwner():ViewPunch(self:GetOwner():GetViewPunchAngles() + Angle( -2, 0, 0 ) )
+    self:GetOwner():SetVelocity(-(self:GetOwner():GetAimVector() - Vector(self:GetOwner():GetViewPunchAngles())/2)*35)
+    self:ShootBullet(20, 3, .15)
     self:EmitSound("weapons/auto_shotgun/gunfire/auto_shotgun_fire_1.wav ", nil, nil, 0.25)
+    self:GetOwner():ViewPunch(self:GetOwner():GetViewPunchAngles()/10 - Angle( 2, 0, 0 ) )
     self:GetOwner():SetEyeAngles(self:GetOwner():EyeAngles() + Angle(-1,math.random(-0.35,0.35),0))
 end
 
